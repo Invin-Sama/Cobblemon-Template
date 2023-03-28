@@ -15,6 +15,9 @@ repositories {
             includeGroup("curse.maven")
         }
     }
+    maven {
+        url = uri("https://oss.sonatype.org/content/repositories/snapshots")
+    }
 }
 
 dependencies {
@@ -24,6 +27,7 @@ dependencies {
 
     modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_api_version")}")
     modImplementation("curse.maven:cobblemon-687131:${property("cobblemon_curse_file_id")}")
+    modImplementation(include("me.lucko:fabric-permissions-api:0.2-SNAPSHOT")!!)
 }
 
 tasks {

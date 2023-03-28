@@ -1,25 +1,22 @@
 {
   "schemaVersion": 1,
-  "id": "examplemod",
+  "id": "trivia",
   "version": "${version}",
-  "name": "ExampleMod",
+  "name": "Trivia",
   "description": "Template for Cobblemon addon development",
   "authors": [
-    "Reyn"
+    "Invin", "Acid"
   ],
   "contact": {
-    "repo": "https://github.com/DotReyn/Cobblemon-Template"
+    "repo": ""
   },
   "license": "MIT",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.example.examplemod.ExampleMod"
+      "com.invin.trivia.Trivia"
     ]
   },
-  "mixins": [
-    "examplemod.mixins.json"
-  ],
   "depends": {
     "fabricloader": ">=0.14.10",
     "fabric": "*",
