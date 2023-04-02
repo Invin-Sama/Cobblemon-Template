@@ -49,7 +49,7 @@ class Trivia : ModInitializer {
                 val sendMessage = Text.literal(player.name.string).aqua().bold()
                 sendMessage.append(Text.literal(" got the answer!").lightPurple())
                 broadcast(player.server, sendMessage)
-                player.server.commandManager.dispatcher.execute("adminpay ${player.name.string} pokedollar 1000", player.server.commandSource)
+                player.server.commandManager.dispatcher.execute("adminpay ${player.name.string} pokedollar 500", player.server.commandSource)
 
                 randTime = Math.random() * 2 + 3
                 triviaTime = Instant.now().plusSeconds((randTime * 60).toLong())
