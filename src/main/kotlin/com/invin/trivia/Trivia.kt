@@ -23,7 +23,7 @@ class Trivia : ModInitializer {
         var randTime = Math.random() * 2 + 3
         var triviaTime = Instant.now().plusSeconds((randTime * 60).toLong())
         var randQuestion = ""
-        var asked = false
+        var answered = false
     }
     override fun onInitialize() {
         loadConfig()
@@ -33,28 +33,27 @@ class Trivia : ModInitializer {
         CommandRegistrationCallback.EVENT.register{ dispatcher, _, _ ->
             ReloadCommand.register(dispatcher)
         }
-        randQuestion = config.questionAnswer.keys.random()
 
         ServerTickEvents.START_SERVER_TICK.register {
-            if (Instant.now().isAfter(triviaTime) && !asked) {
-                asked = true
+            if (Instant.now().isAfter(triviaTime)) {
+                answered = false
+                randQuestion = config.questionAnswer.keys.random()
                 val message = Text.literal("[").append(Text.literal("Trivia").gold()).append(Text.literal("] ")).aqua()
                 message.append(Text.literal(randQuestion).green())
                 broadcast(it, message)
+                randTime = Math.random() * 2 + 3
+                triviaTime = Instant.now().plusSeconds((randTime * 60).toLong())
             }
         }
 
         ServerMessageEvents.ALLOW_CHAT_MESSAGE.register { message, player, _ ->
-            if (message.content.string.lowercase() == (config.questionAnswer[randQuestion]?.lowercase() ?: "")) {
+            if (message.content.string.lowercase() == (config.questionAnswer[randQuestion]?.lowercase() ?: "") && !answered) {
                 val sendMessage = Text.literal(player.name.string).aqua().bold()
                 sendMessage.append(Text.literal(" got the answer!").lightPurple())
                 broadcast(player.server, sendMessage)
                 player.server.commandManager.dispatcher.execute("adminpay ${player.name.string} pokedollar 500", player.server.commandSource)
+                answered = true
 
-                randTime = Math.random() * 2 + 3
-                triviaTime = Instant.now().plusSeconds((randTime * 60).toLong())
-                randQuestion = config.questionAnswer.keys.random()
-                asked = false
                 return@register false
             }
             return@register true
