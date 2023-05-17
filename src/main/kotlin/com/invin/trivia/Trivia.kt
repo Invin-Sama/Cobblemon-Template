@@ -21,7 +21,7 @@ class Trivia : ModInitializer {
 
     companion object {
         lateinit var config: TriviaSpec
-        var randTime = Math.random() * 2 + 3
+        var randTime = Math.random() * 2 + 2
         var triviaTime = Instant.now().plusSeconds((randTime * 60).toLong())
         var randQuestion = ""
         var answered = false
@@ -51,7 +51,7 @@ class Trivia : ModInitializer {
                     message.append(Text.literal("Unscramble the name of this Pokemon: ${getScrambledPokemon()}").green())
                 }
                 broadcast(it, message)
-                randTime = Math.random() * 2 + 3
+                randTime = Math.random() * 2 + 2
                 triviaTime = Instant.now().plusSeconds((randTime * 60).toLong())
             }
         }
